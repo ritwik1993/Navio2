@@ -1,0 +1,16 @@
+function(addExamples moduleName)
+add_executable(${moduleName} ${moduleName}/${moduleName}.cpp)
+include_directories(${CMAKE_SOURCE_DIR}/C++/Navio)
+target_link_libraries(${moduleName} ${CMAKE_BINARY_DIR}/C++/Navio/libnavio.so)
+install(TARGETS ${moduleName} DESTINATION ${CMAKE_BINARY_DIR}/install/bin)
+endfunction(addExamples)
+
+addExamples(ADC)
+addExamples(AHRS)
+addExamples(AccelGyroMag)
+addExamples(Barometer)
+addExamples(GPS)
+addExamples(LED)
+addExamples(RCInput)
+addExamples(Servo)
+#Multithreaded has a different filename

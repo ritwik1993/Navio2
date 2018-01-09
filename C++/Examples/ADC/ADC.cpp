@@ -2,27 +2,19 @@
 #include <cstdio>
 #include <Common/Util.h>
 #include <Navio2/ADC_Navio2.h>
-#include <Navio+/ADC_Navio.h>
+#include <vector>
 #include <memory>
 
 #define READ_FAILED -1
 
 
 
-std::unique_ptr <ADC> get_converter()
+std::unique_ptr<ADC> get_converter()
 {
-    if (get_navio_version() == NAVIO2)
-    {
+  
         auto ptr = std::unique_ptr <ADC>{ new ADC_Navio2() };
         return ptr;
-    } else
-    {
-        auto ptr = std::unique_ptr <ADC>{ new ADC_Navio() };
-        return ptr;
-    }
-
 }
-
 
 int main(int argc, char *argv[])
 {
@@ -31,7 +23,7 @@ int main(int argc, char *argv[])
     }
     auto adc = get_converter();
     adc->initialize();
-    float results[adc->get_channel_count()] = {0.0f};
+    std::vector<float> results(adc->get_channel_count(),0.0);
     while (true)
     {
         for (int i = 0; i < adc->get_channel_count(); i++)
